@@ -17,15 +17,14 @@ namespace inherit
             do
             {
                 name1 = Helper.GetName("Enter your name : ");
-                age1 = Helper.GetNum("Enter your age : ");
+                age1 = Helper.GetNum("Enter your age  : ");
                 gender1 = Helper.GetGender("Enter your gender : ");
-                Console.Write("Enter your favorite game : ");
-                fave = Console.ReadLine();
+                fave = Helper.GetfaveGame("Enter your favorite game : ");
                 Console.WriteLine();
             
                 Child02 b = new Child02(name1, age1, gender1, fave);
 
-                sibNum = Helper.GetNum("How many sibling/s do you have ? : ");
+                sibNum = Helper.GetNumSib("How many sibling/s do you have ? : ");
                 Child01 sib1 = new Child01(name1, age1, gender1);
 
                 for (int i = 0; i < sibNum; i++)
@@ -40,12 +39,15 @@ namespace inherit
                     children.Add(sibling);
                 }
 
-                name1 = Helper.GetName("Enter your Father name  : ");
-                age1 = Helper.GetNum("Father age              : ");
+                Console.WriteLine() ;
+                Console.WriteLine("If you dont know your Father put N/A:");
+                name1 = Helper.GetParent("Enter your Father name  : ");
+                age1 = Helper.GetParentAge("Father age              : ");
                 Person c = new Person(name1, age1);
 
-                name1 = Helper.GetName("Enter your Mother name : ");
-                age1 = Helper.GetNum("Mother age             : ");
+                Console.WriteLine("If you dont know your Mother put N/A:");
+                name1 = Helper.GetParent("Enter your Mother name : ");
+                age1 = Helper.GetParentAge("Mother age             : ");
                 Console.WriteLine();
                 Person01 d = new Person01(name1, age1);
 
@@ -69,3 +71,5 @@ namespace inherit
         }
     }
 }
+
+
