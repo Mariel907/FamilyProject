@@ -36,22 +36,6 @@ namespace Properties
             } while (!isValid);
             return num;
         }
-         public static int GetNumSib(string prompt, bool canBeNegative = false)
-        {
-             int num = 0;
-             bool isValid = false;
-             do
-             {
-                 Console.Write(prompt);
-                 isValid = int.TryParse(Console.ReadLine(), out num);
-                 if (!canBeNegative && num <= 0 )
-                 {
-                     isValid = false;
-                     Console.WriteLine("Age must not be a non-negative number.");
-                 }
-             } while (!isValid);
-             return num;
-        }
         public static string GetName(string prompt)
         {
             bool isValid = false;
