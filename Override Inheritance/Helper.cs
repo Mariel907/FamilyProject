@@ -15,7 +15,7 @@ namespace Properties
             bool isValid = false;
             try
             {
-                isValid = !string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[a-zA-Z\s]+$");
+                isValid = !string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[A-Z][a-zA-Z\s]+$");
             }
             catch { isValid = false; }
             return isValid;
