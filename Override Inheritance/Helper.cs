@@ -8,10 +8,11 @@ namespace Properties
     {
         public static bool IsValidName(string name)
         {
+           
             bool isValid = false;
             try
             {
-                isValid = !string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[A-Z][a-zA-Z\s]");
+                isValid = !string.IsNullOrWhiteSpace(name) && Regex.IsMatch(name, @"^[a-zA-Z\s]+$");
             }
             catch { isValid = false; }
             return isValid;
@@ -19,15 +20,20 @@ namespace Properties
         public static int GetNum(string prompt, bool canBeNegative = false)
         {
             int num = 0;
-            bool isValid = false;
+            bool isValid = true;
             do
             {
                 Console.Write(prompt);
                 isValid = int.TryParse(Console.ReadLine(), out num);
-                if (!canBeNegative && num <= 0)
+                if (!canBeNegative && num <= 0 )
                 {
-                    isValid = false;
                     Console.WriteLine("Age must not be a non-negative number.");
+                    isValid = false;
+                }
+                else if (num > 99)
+                {
+                    Console.WriteLine("Age must not be greater than 99.");
+                    isValid = false;
                 }
             } while (!isValid);
             return num;
@@ -41,10 +47,19 @@ namespace Properties
             {
                 Console.Write(prompt);
                 isValid = int.TryParse(Console.ReadLine(), out num);
-                if (!canBeNegative && num < 0 )
+                if (!isValid)
                 {
-                    isValid = false;
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+                else if (!canBeNegative && num < 0)
+                {
                     Console.WriteLine("Age must not be a non-negative number.");
+                    isValid = false;
+                }
+                else if (num > 25)
+                {
+                    Console.WriteLine("Age must not be greater than 25.");
+                    isValid = false;
                 }
             } while (!isValid);
             return num;
@@ -61,6 +76,10 @@ namespace Properties
                 {
                     isValid = true;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid name. Please enter a name containing only letters and spaces.");
+                }
             } while (!isValid);
             return name1;
         }
@@ -71,68 +90,18 @@ namespace Properties
             do
             {
                 Console.Write(prompt);
-                gender1 = Console.ReadLine().ToLower();
-                if (gender1 == "male" || gender1 == "female" || gender1 == "m" || gender1 == "f")
+                gender1 = Console.ReadLine().ToUpper();
+                if ( gender1 == "M" || gender1 == "F")
                 {
                     isValid = true;
+                }
+                else 
+                {
+                    Console.WriteLine("Invalid input. Please enter 'F' or 'M'.");
+                    isValid = false;
                 }
             } while (!isValid);
             return gender1;
-        }
-        public static string GetParent(string prompt)
-        {
-            bool isValid = false;
-            string name;
-            do
-            {
-                Console.Write(prompt);
-                name = Console.ReadLine().ToUpper();
-                if (name == "N/A" || Helper.IsValidName(name))
-                {
-                    isValid = true;
-                }
-            } while (!isValid);
-            return name;
-        }
-        public static int GetParentAge(string prompt)
-        {
-            bool isValid = false;
-            int age = 0;
-            do
-            {
-                Console.Write(prompt);
-                isValid = int.TryParse(Console.ReadLine(), out age);
-                if (age < 0)
-                {
-                    isValid = true;
-                }
-            } while (!isValid);
-            return age;
-        }
-        public static bool Game(string name)
-        {
-            bool isValid = false;
-            try
-            {
-                isValid = !string.IsNullOrWhiteSpace(name);
-            }
-            catch { isValid = false; }
-            return isValid;
-        }
-        public static string GetfaveGame(string prompt)
-        {
-            bool isValid = false;
-            string name1;
-            do
-            {
-                Console.Write(prompt);
-                name1 = Console.ReadLine();
-                if (Helper.Game(name1))
-                {
-                    isValid = true;
-                }
-            } while (!isValid);
-            return name1;
         }
     }
 }
