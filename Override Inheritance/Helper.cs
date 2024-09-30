@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics.Metrics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Properties
 {
@@ -25,7 +28,11 @@ namespace Properties
             {
                 Console.Write(prompt);
                 isValid = int.TryParse(Console.ReadLine(), out num);
-                if (!canBeNegative && num <= 0 )
+                if (!isValid)
+                {
+                    Console.WriteLine("It looks like you entered a letter instead of a number.Please enter a valid age(numeric value).");
+                }
+                else if (!canBeNegative && num <= 0 )
                 {
                     Console.WriteLine("Age must not be a non-negative number.");
                     isValid = false;
