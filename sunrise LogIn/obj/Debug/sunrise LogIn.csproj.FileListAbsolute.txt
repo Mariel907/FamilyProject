@@ -1,0 +1,11 @@
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\bin\Debug\sunrise LogIn.exe.config
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\bin\Debug\sunrise LogIn.exe
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\bin\Debug\sunrise LogIn.pdb
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise LogIn.csproj.AssemblyReference.cache
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise_LogIn.Properties.Resources.resources
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise LogIn.csproj.GenerateResource.cache
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise LogIn.csproj.CoreCompileInputs.cache
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise LogIn.exe
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise LogIn.pdb
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise_LogIn.LogInForm.resources
+C:\Users\Mariel\source\repos\sunrise LogIn\sunrise LogIn\obj\Debug\sunrise_LogIn.MainForm.resources
