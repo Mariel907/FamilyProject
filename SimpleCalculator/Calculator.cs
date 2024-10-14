@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using System.Diagnostics;
 using System.Windows.Forms;
-using System.Globalization;
 
 namespace SimpleCalculator
 {
@@ -32,22 +25,36 @@ namespace SimpleCalculator
         }
         private void SetOperator(string optrSymbol)
         {
-            if (enterValue)
-            {
-                operation = optrSymbol;
-                textPreview.Text = fstNum + operation;
-            }
-            else
-            {
-                fstNum = secNum;
-                operation = optrSymbol;
-                secNum = "";
-                textPreview.Text = fstNum + operation;
-                textDisplay.Text = "0";
-            }
+            if (result != 0)
+                btnEqual.PerformClick();
+            else if (!string.IsNullOrEmpty(textDisplay.Text))
+                result = Double.Parse(textDisplay.Text);
+
+            if (!string.IsNullOrEmpty(textDisplay.Text))
+                fstNum = textDisplay.Text;
+
+            operation = optrSymbol;
             enterValue = true;
+
+            textPreview.Text = $"{result} {operation}";
+            textDisplay.Text = string.Empty;
         }
-        private void AgainEqual(string value)
+        private void btnNum_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            if (button != null)
+            {
+                string buttonText = button.Text;
+                secNumDisplay(buttonText);
+            }
+            else if (button.Text == ".")
+            {
+                if (!textDisplay.Text.Contains("."))
+                    textDisplay.Text += ".";
+            }
+            else textDisplay.Text = textDisplay.Text + button.Text;
+        }
+        private void secNumDisplay(string value)
         {
             if (enterValue)
             {
@@ -64,38 +71,38 @@ namespace SimpleCalculator
         {
             double num1 = double.Parse(fstNum);
             double num2 = double.Parse(secNum);
-                switch (operation)
-                {
-                    case "+":
-                        result = num1 + num2;
-                        break;
-                    case "-":
-                        result = num1 - num2;
-                        break;
-                    case "×":
-                        result = num1 * num2;
-                        break;
-                    case "÷":
-                        try
+            switch (operation)
+            {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "×":
+                    result = num1 * num2;
+                    break;
+                case "÷":
+                    try
+                    {
+                        double divisor = Double.Parse(textDisplay.Text);
+                        if (divisor == 0)
                         {
-                            double divisor = Double.Parse(textDisplay.Text);
-                            if (divisor == 0)
-                            {
-                                throw new DivideByZeroException();
-                            }
-                            result = num1 / num2;
+                            throw new DivideByZeroException();
                         }
-                        catch (DivideByZeroException)
-                        {
-                            textDisplay.Text = " Cannot divide by zero.";
-                            return;
-                        }
-                        break;
-                }
-                textDisplay.Text = result.ToString();
-                textPreview.Text = $"{num1} {operation} {num2} = ";
-                fstNum = result.ToString();
-        }
+                        result = num1 / num2;
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        textDisplay.Text = " Cannot divide by zero.";
+                        return;
+                    }
+                    break;
+            }
+            textDisplay.Text = result.ToString();
+            textPreview.Text = $"{num1} {operation} {num2} = ";
+            fstNum = result.ToString();
+         }
         private void btnBackspace_Click(object sender, EventArgs e)
         {
             if (textDisplay.Text.Length > 0)
@@ -121,35 +128,28 @@ namespace SimpleCalculator
         private void btnPercent_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            textPreview.Text = $"%({textDisplay.Text})"; 
+            textPreview.Text = $"%({textDisplay.Text})";
             textDisplay.Text = Convert.ToString(Convert.ToDouble(textDisplay.Text) / Convert.ToDouble(100));
         }
         private void textDisplay_TextChanged(object sender, EventArgs e)
         {
-            string value = textDisplay.Text.Replace(",", "");
-            long ul;
-            if (long.TryParse(value, out ul))
+            string value = textDisplay.Text.Replace(",", "").Replace(".", "");
+            if (long.TryParse(value, out _))
             {
                 textDisplay.TextChanged -= textDisplay_TextChanged;
-                textDisplay.Text = string.Format("{0:#,#0}", ul);
+                if (textDisplay.Text.Contains("."))
+                {
+                    string[] parts = textDisplay.Text.Split('.');
+                    textDisplay.Text = string.Format("{0:#,#0}.{1}", long.Parse(parts[0]), parts[1]);
+                }
+                else
+                {
+                    textDisplay.Text = string.Format("{0:#,#0}", long.Parse(value));
+                }
                 textDisplay.SelectionStart = textDisplay.Text.Length;
                 textDisplay.TextChanged += textDisplay_TextChanged;
             }
         }
-        private void btnNum_Click(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-            if (button != null)
-            {
-                string buttonText = button.Text;
-                AgainEqual(buttonText);
-            }
-            else if (button.Text == ".")
-            {
-                if (!textDisplay.Text.Contains("."))
-                    textDisplay.Text += "0.";
-            }
-            else textDisplay.Text = textDisplay.Text + button.Text;
-        }
+       
     }
 }
